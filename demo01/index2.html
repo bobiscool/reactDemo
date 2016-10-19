@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+<script type="text/babel">
+    //** Our code goes here
+    //react.js 是React的核心库
+    //react-dom.js 是提供DOM相关的功能的
+    // brower js作用是将jsx愈发转为javascript语法
+    //jsx语法 HTML语言直接写在javascript语言之中 不加任何引号这就是jsx语法,他允许HTML与Javascript的混写
+// 组件只能包含一个顶层标签
+    //
+
+
+//    propTypes:{
+//        title:React.PropTypes.string.isRequired,
+//    },
+
+    // 获取 真实的的DOM节点
+    //但是有时需要从组建获取真实得节点,这时就要用到ref属性
+
+    // 上面代码中 组件 M与、Component 的子节点 有一个文本输入框,用于获取用户的输入。这时就必须获取正式的DOM节点 虚拟DOM是拿不到用户数输入的 为了做到这一点 文本框必须有一个re属性 然后this.refs.[refName]就会返回这个真实的DOM节点
+    // THIS.STATE
+    // 组件免不了 要与用户互动 React的一大创新,就是讲组件看做一个状态机,一开始有一个初始状态,然后与用户互动,导致转台变化,从而触发重新渲染UI
+// 上面代码 是一个LikeButton他的gitInitialState 方法来定义初始初始状态 ,也就是一个对象,这个对象可以通过this。state 属性读取,当用户点击组件的时候,就会导致状态变化,this.setState 方法修改状态值,每次修改以后,自动调用render方法 再次渲染插件   由于 this.props 和 this.state都用于面熟组件的特性,可能会产生混淆,一个简单的区分方法是  this.props表示那些一旦定义 就不会改变的特性,而this.state是会随着用户互动而产生变化的特性
+    /**
+     * 用户在表单 填入内容 属于用户跟组件的互动,所以不能用this.props读取
+     *
+     */
+
+
+var Hello = React.createClass({
+
+    getInitialState: function(){
+        return {
+            opacity:1.0
+        };
+
+    },
+        componentDidMount: function(){
+           this.timer = setInterval(function() {
+               var opacity = this.state.opacity;
+               opacity -= 0.5;
+               if (opacity < 0.1) {
+                   opacity = 1;
+               }
+               this.setState({
+                   opacity: opacity
+               });
+           }.bind(this),100)},
+
+
+        render:function(){
+               return (
+                       <div style={{opacity:this.state.opacity}}>
+                           Hello{this.props.name}
+                       </div>
+               );
+        }
+
+           });
+
+    ReactDOM.render(
+        <Hello name="world"/>,
+                document.body
+    );
+//
+</script>
+</body>
+</html>
